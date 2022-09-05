@@ -101,6 +101,6 @@ def test_201():
 def test_204():
     assert requests_204().status_code == 204
 
-@pytest.mark.parametrize("responses", [requests_400()[0], requests_400()[1]])
+@pytest.mark.parametrize("responses", [request for request in requests_400()])
 def test_400(responses):
     assert responses.status_code == 400
