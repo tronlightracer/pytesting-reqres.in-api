@@ -104,25 +104,3 @@ def test_204():
 @pytest.mark.parametrize("responses", [requests_400()[0], requests_400()[1]])
 def test_400(responses):
     assert responses.status_code == 400
-
-# def test_json_responses():
-#     users_request = requests_200()[1].json()
-#     users_file = jsn.load(open("json_files/get_users.json"))
-#     user_request = requests_200()[0].json()
-#     user_file = jsn.load(open("json_files/get_user.json"))
-#     # list_resource = requests_200()[2].json()
-#     # list_file = jsn.load(open("json_files/get_list_resource.json"))
-#     resource_request = requests_200()[3].json()
-#     resource_file = jsn.load(open("json_files/resource.json"))
-#     #resource_not_found_request = requests_200()[4].json() # json = {}
-#     get_delayed_request = requests_200()[4].json()
-#     delayed_response_file = jsn.load(open("json_files/delayed_response.json"))
-    
-#     assert users_request == users_file
-#     assert user_request == user_file
-#     # assert list_resource == list_file
-#     assert resource_request == resource_file
-#     #assert resource_not_found_request == {}
-#     assert get_delayed_request == delayed_response_file
-
-# print(test_json_responses())
