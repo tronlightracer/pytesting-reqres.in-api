@@ -9,6 +9,7 @@ These tests test all of the api endpoints for 'reqres.in utilizing the python re
 url = "https://reqres.in"
 header1 = {"Content-Type": "application/json"}
 
+@pytest.fixture
 def requests_200():
     get_user = requests.get(url + "/api/users/2")
     get_users = requests.get(url + "/api/users?page=2")
@@ -61,6 +62,7 @@ def requests_200():
         put_update,
         patch_update]
 
+@pytest.fixture
 def requests_201():
     create_user = requests.post(
         url + "/api/users",
@@ -69,6 +71,7 @@ def requests_201():
     )
     return create_user
 
+@pytest.fixture
 def requests_204():
     delete_user = requests.delete(
         url + "/api/users/2",
@@ -76,6 +79,7 @@ def requests_204():
     )
     return delete_user
 
+@pytest.fixture
 def requests_400():
     unsuccessful_register = requests.post(
         url + "/api/register",
@@ -91,16 +95,19 @@ def requests_400():
 
     return [unsuccessful_register, unsuccessful_login]
 
-@pytest.mark.parametrize("responses", [request for request in requests_200()])
-def test_200(responses):
-    assert responses.status_code == 200
+# @pytest.mark.parametrize("responses", requests_200)
+def test_200(requests_200):
+    for i in requests_200:
+        assert i.status_code == 200
 
-def test_201():
-    assert requests_201().status_code == 201
+def test_201(requests_201):
+    assert requests_201.status_code == 201
 
-def test_204():
-    assert requests_204().status_code == 204
+def test_204(requests_204):
+    assert requests_204.status_code == 204
 
-@pytest.mark.parametrize("responses", [request for request in requests_400()])
-def test_400(responses):
-    assert responses.status_code == 400
+#@pytest.mark.parametrize("responses", requests_400)
+def test_400(requests_400):
+    for i in requests_400:
+        assert i.status_code == 400
+
